@@ -1,6 +1,8 @@
 
 IMPLEMENTACIONES PENDIENTES
 
+- Añadir un calendario con todos los eventos de mes que se han producido en los grupos que formas parte.
+
 - Identificación de usuarios a través de certificado electrónico.
 
 - Firmar documentación con certificado electrónico.
@@ -14,10 +16,4 @@ IMPLEMENTACIONES PENDIENTES
 - Implementar la subida de ficheros y el almacenamiento de la referencia en la base de datos.
 
 - Hacer test unitarios y de integración.
-
-MEJORAS
-
-- Sustituir las consultas dobles por accesos a las relaciones de Sequalize.
-
-
 

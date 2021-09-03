@@ -17,11 +17,11 @@ const emailCrearUsuario = (creador, destinatario, grupo) => {
     ` 
       Buenos días,
 
-      su dirección de correo electrónico, ${destinatario}, ha sido referenciada por un compañero, ${creador}, de rotación en un grupo denominado "${grupo}". Si necesita consultar el número de componentes del grupo, la lista de rotaciones del grupo con la fecha del evento y quie la realizo, a quien le toca el siguiente turno, etc. Puede acceder a la aplicación a través de la siguiente dirección web https://rotaciones.herokuapp.com/grupos.
+      su dirección de correo electrónico, ${destinatario}, ha sido referenciada por un compañero, ${creador}, de rotación en un grupo denominado "${grupo}". Si necesita consultar el número de componentes del grupo, la lista de rotaciones del grupo con la fecha del evento y quien la realizo, a quien le toca el siguiente turno, etc. Puede acceder a la aplicación a través de la siguiente dirección web https://rotaciones.herokuapp.com/grupos.
 
       Como ha sido dado de alta en el servicio a petición de otro usuario, todavía, no tiene una contraseña asignada a su correo electrónico, por lo tanto, la primera vez que acceda al servicio debe usted hacer uso del enlace para recuperar la contraseña. Una vez que ha solicitada la recuperación de la contraseña, el sistema le enviará un enlace a su correo electrónico para crear una nueva contraseña, y así, poder acceder al mismo.
 
-      Esta app es una iniciativa privada desarrollada por Pedro Muñoz, a petición de los amigos Daniel Nagore y Raúl Iglesias, para la realización y el visado de los turnos del pago de los desayunos entre amigos. Todavía en fase de pruebas.
+      Esta app es una iniciativa privada desarrollada por Pedro Manuel Muñoz Morales, a petición de los amigos Daniel Nagore y Raúl Iglesias, para la realización y el visado de los turnos del pago de los desayunos entre amigos. Este proyecto Open Source está disponible con licencia Apache en Git Hub, en la siguiente URL https://github.com/pmunoz85/rotaciones. Debemos recordar, que el proyecto todavía está en fase de pruebas, por lo que si encuentra un error o aprecia que necesita una mejora, por favor, indíquelo a través de Git Hub.
 
       Atentamente,
       Pedro Manuel Muñoz Morales

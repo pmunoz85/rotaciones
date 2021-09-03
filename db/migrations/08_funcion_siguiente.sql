@@ -66,7 +66,7 @@ BEGIN
     end if;
   end loop;
 
-  -- Si el bucle anterior no ha tenido exito, elegimos al siguiente de la lista de miembros.
+  -- Si el bucle anterior no ha tenido éxito, elegimos al siguiente de la lista de miembros.
   SELECT user_id  into seleccionado
   FROM grupo_user 
   where grupo_id = $1 
@@ -142,7 +142,7 @@ BEGIN
     end if;
   end loop;
 
-  -- Si el bucle anterior no ha tenido exito, elegimos al siguiente de la lista de miembros.
+  -- Si el bucle anterior no ha tenido éxito, elegimos al siguiente de la lista de miembros.
   SELECT users.email  into seleccionado
   FROM grupo_user 
   left join users on users.id = grupo_user.user_id
