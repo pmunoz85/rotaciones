@@ -1,0 +1,11 @@
+
+<h1>Calendario con todos los eventos realizados</h1>
+
+<button id="btnGrupos" class="btn btn-primary">Gestión de grupos</button>
+
+<script>
+  const botonNuevo = document.querySelector('#btnGrupos');
+  botonNuevo.addEventListener('click', () => {
+    window.location = `/grupos?tokenparam=${localStorage.getItem('b54-token')}`;
+  });
+</script>

@@ -1,0 +1,128 @@
+<h1 class='mt-5'> 
+  <span class='bi bi-layout-wtf'></span> Mis grupos 
+  <button id="btnNuevoGrupo" class="btn btn-primary float-end">
+    <span class='bi bi-plus-square'></span> Nuevo grupo
+  </button>
+</h1>
+
+<nav aria-label='Page navigation example'>
+  <ul class='pagination justify-content-end'>
+    <li class='page-item {{previous_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/grupos/?page={{pagina_anterior}}'
+        tabindex='-1'
+        aria-disabled='true'
+      >Anterior</a>
+    </li>
+    {{#each botonesPaginas}}
+      <li class='page-item {{#if (eq this ../pagina)}}active{{/if}}' >
+        <a
+          class='aqui-token page-link' 
+          href='/grupos?page={{this}}'
+        >{{this}}</a></li>
+    {{/each}}
+    <li class='page-item {{next_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/grupos/?page={{pagina_posterior}}'
+      >Siguiente</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="row"> 
+  <hr style="height: 5px;"/>
+</div>
+
+<div class="row">
+  {{#each registros}}
+    <div class="row">
+      <div class="col-12">
+        <button class='btn btn-secondary' onclick="window.location = `/grupos/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`">
+          <span class='bi bi-eye'></span>
+        </button>  
+        <strong><big> => {{this.descripcion}}</big></strong>
+      </div>
+      <hr style="margin-top: 3px;" />
+    </div>
+    <div class="row">
+      <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
+        {{#if this.usuarios}}
+          <div class="row">
+            <div>
+              <strong style="font-style: italic;"> <span class='bi bi-person-fill'></span> INTEGRANTES DEL GRUPO </strong>
+            </div>
+          </div>
+          <hr style="height: 1px; width: 50%;" />
+          <div class="row">
+            {{#each this.usuarios}}
+              <div class="left-float">
+                {{#if this.siguiente}}
+                  <button class="left-float btn btn-danger" style="margin-bottom: 2px;" onclick="if (confirm('¿Está seguro de que quire añadir este evento?')) {window.location = `/grupos/{{../this.id}}/next?tokenparam=${localStorage.getItem('b54-token')}`}">
+                    Siguiente: {{this.email}} {{#if this.propietario}}(**){{/if}}
+                  </button>
+                {{else}}
+                  <button class="left-float btn btn-dark" style="margin-bottom: 2px;" onclick="if (confirm('¿Está seguro de que quire añadir este evento?')) {window.location = `/grupos/{{../this.id}}/{{this.id}}/payer?tokenparam=${localStorage.getItem('b54-token')}`}">
+                    {{this.email}} {{#if this.propietario}}(**){{/if}}
+                  </button>
+                {{/if}}
+              </div>
+            {{/each}}
+          </div>
+        {{/if}}
+      </div>
+      <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+        {{#if this.eventos}}
+          <div class="row">
+            <div>
+              <strong style="font-style: italic;"> <span class="bi bi-calendar-date"> </span> EVENTOS (Fecha y Agraciado) </strong>
+            </div>
+          </div>
+          <hr style="height: 1px; width: 50%;" />
+          {{#each this.eventos}}
+            <div class="row">
+              <div>
+                {{ this.cuando }} - {{this.pagador_email}}  
+              </div>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+    <hr style="height: 5px; margin-top: 10px"/>
+  {{/each}}
+</div>
+
+<nav aria-label='Page navigation example'>
+  <ul class='pagination justify-content-end'>
+    <li class='page-item {{previous_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/grupos/?page={{pagina_anterior}}'
+        tabindex='-1'
+        aria-disabled='true'
+      >Anterior</a>
+    </li>
+    {{#each botonesPaginas}}
+      <li class='page-item {{#if (eq this ../pagina)}}active{{/if}}' >
+        <a
+          class='aqui-token page-link' 
+          href='/grupos?page={{this}}'
+        >{{this}}</a></li>
+    {{/each}}
+    <li class='page-item {{next_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/grupos/?page={{pagina_posterior}}'
+      >Siguiente</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const botonNuevo = document.querySelector('#btnNuevoGrupo');
+  botonNuevo.addEventListener('click', () => {
+    window.location = `/grupos/new?tokenparam=${localStorage.getItem('b54-token')}`;
+  });
+</script>

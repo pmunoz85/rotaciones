@@ -1,0 +1,309 @@
+<br />
+<br />
+
+<div class="row">
+  <div class="col-12">
+    <div class='card border-dark mb-3' style='max-width: 100%;'>
+      <div class='card-header bg-transparent border-dark'>
+        <h1><i class="bi bi-layout-wtf"></i> Editar grupo</h1>
+      </div>
+      <div class='card-body text-dark'>
+        <h5 class='card-title'>Descripción del grupo</h5>
+        <p class='card-text'>
+          <form id="editar_grupo" action="/grupos/{{uDatos.id}}" method="post" class="aqui-token">
+            <div class='row'>
+              <div class='col-12'>
+                <input type='text' name='descripcion' class='form-control' autofocus required value="{{uDatos.descripcion}}" placeholder="descripción del grupo"></input>
+              </div>
+            </div>
+          </form>
+        </p>
+      </div>
+      <div class='card-footer bg-transparent border-dark'>
+        <button type='submit' form='editar_grupo' class='btn btn-success'>
+          <span class='bi bi-check-circle-fill'></span> Aceptar
+        </button>
+        <button class="btn btn-danger" onclick="window.location = `/grupos/{{uDatos.id}}?tokenparam=${localStorage.getItem('b54-token')}`"><span class='bi bi-x-circle-fill'></span> Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div id="recuadro_integrantes" class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+    <div class='card border-dark mb-3' style='max-width: 100%; font-size:x-large;'>
+      <div class='card-header bg-transparent border-dark'>
+        <div class="row">
+          <div class="col-12">
+            <h1><i class="bi bi-people-fill"></i> Integrantes</h1>
+          </div>
+        </div>
+      </div>
+      <div class='card-body text-dark'>
+        <div class="row">
+          <div class="col">
+            <span class="bi bi-person-fill"> 
+             <i>{{email_usuario}}</i> (propietario)
+            </span> 
+          </div>
+        </div>
+
+        <hr style="height: 5px;"/>
+
+        <div id="contenedor_integrantes">
+          {{#each uDatos.usuarios}}
+            <div id="eliminar_integrante_{{this.id}}" class="row">
+              <div class="col-10">
+                <input form="editar_grupo" type="text" name="integrantes" class="form-control" readonly="true" style="margin-bottom: 15px" value="{{this.email}}">
+              </div>
+
+              <div class="col-2">
+                <button onclick="funcEliminarElemento('eliminar_integrante_{{this.id}}');" class="btn btn-danger" style="padding-bottom: 13px"><span class='bi bi-trash'></span></button>
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+        <hr style="height: 5px;"/>
+
+        <div class='row'>
+          <div class='col-xl-6 col-lg-12 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+            <input id="input_integrante" type="email" class="form-control" name="email_integrante" placeholder="email del nuevo integrante"></input>
+          </div>
+          <div class='col-xl-6 col-lg-12 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+            <button id="boton_integrante" class="btn btn-success" disabled><span class='bi bi-person-plus' ></span> Nuevo integrante</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+    <div class='card border-dark mb-3' style='max-width: 100%; font-size:x-large;'>
+      <div class='card-header bg-transparent border-dark'>
+        <h1><i class="bi bi-calendar-date"></i> Eventos</h1>
+      </div>
+      <div class='card-body text-dark'>
+
+          <div id="contenedor_eventos">
+            {{#each uDatos.eventos}}
+              <div id="eliminar_evento_{{this.id}}" class="row div_evento" >
+                <div class="col-10">
+                  <input form="editar_grupo" type="text" name="eventos" class="form-control" readonly="true" style="margin-bottom: 15px" value="{{ this.cuando }} - {{this.pagador_email}}">
+                </div>
+                <div class="col-2">
+                  <button onclick="funcEliminarElemento('eliminar_evento_{{this.id}}');" class="btn btn-danger" style="padding-bottom: 13px"><span class='bi bi-trash'></span></button>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+
+          <hr style="height: 5px;"/>
+
+          <div class='row'>
+            <div class='col-xl-4 col-lg-6 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+              <input type="date" class="datepicker form-control" data-date-format="dd/mm/yyyy" name="calendario" id="input_evento">
+            </div>
+            <div class='col-xl-4 col-lg-6 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+              <select class="form-select" name="email_integrantes" id="select_evento">
+                <option value="0">Seleccione un integrante</option>
+                <option value="{{email_usuario}}">{{email_usuario}} (propietario)</option>
+                {{#each uDatos.usuarios}}
+                  <option value="{{this.email}}">{{this.email}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class='col-xl-4 col-lg-12 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+              <button id="boton_evento" class="btn btn-success" disabled><span class='bi bi-calendar-plus' ></span> Nuevo evento</button>
+            </div>
+          </div>
+            
+      </div>
+    </div>
+
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+</div>
+
+<script type='text/javascript'>
+  let contador = 1;
+  let contadorEventos = 1;
+  const botonIntegrante = document.querySelector('#boton_integrante');
+  const contenedorIntegrantes = document.querySelector('#contenedor_integrantes');
+  const inputIntegrante = document.querySelector('#input_integrante');
+  const botonEvento = document.querySelector('#boton_evento');
+  const contenedorEventos = document.querySelector('#contenedor_eventos');
+  const inputEvento = document.querySelector('#input_evento');
+  const selectEvento = document.querySelector('#select_evento');
+
+  const rehacerSelect = () => {
+    const selector = document.querySelector('#select_evento');
+    const integrantesParaSelect = document.querySelectorAll('#contenedor_integrantes input');
+    const nodoSelect = document.querySelectorAll('#select_evento option');
+
+    for (let elemento of nodoSelect) { 
+      selector.removeChild(elemento);
+    }
+
+    const opcion0 = document.createElement('option');
+    opcion0.text = 'Seleccione un integrante';
+    opcion0.value = '0';
+    selector.appendChild(opcion0);
+
+    const opcion1 = document.createElement('option');
+    opcion1.text = '{{email_usuario}} (propietario)';
+    opcion1.value = '{{email_usuario}}';
+    selector.appendChild(opcion1);
+
+    for (let elemento of integrantesParaSelect) { 
+      const opcion = document.createElement('option');
+      opcion.text = elemento.value;
+      opcion.value = elemento.value;
+      selector.appendChild(opcion);
+    }
+  };
+
+  const funcEliminarElemento = (iden) => {
+    document.getElementById(iden).remove();
+    activarVentanaIntegrantes();
+    rehacerSelect();
+  };
+
+  const funcionAddEvent = () => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(inputIntegrante.value) && comprobarListaIntegrantes(inputIntegrante.value)) 
+      botonIntegrante.disabled = false;
+    else 
+      botonIntegrante.disabled = true;
+  };
+
+  inputIntegrante.addEventListener('keyup', funcionAddEvent);
+  inputIntegrante.addEventListener('change', funcionAddEvent);
+
+  const comprobarListaIntegrantes = (nuevo) => {
+    const integrantesParaSelect = document.querySelectorAll('#contenedor_integrantes input');
+    
+    for (let elemento of integrantesParaSelect) { 
+      if (nuevo === elemento.value) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  botonIntegrante.addEventListener('click', () => {
+    const division1 = document.createElement('div');
+    const division2 = document.createElement('div');
+    const division3 = document.createElement('div');
+    const boton = document.createElement('button');
+    const texto1 = document.createElement('span');
+    const entrada = document.createElement('input');
+
+     if (!comprobarListaIntegrantes(inputIntegrante.value)) return;
+
+    division1.setAttribute('class', 'row div_integrante');
+    division1.setAttribute('id', `eliminar_integrante_nuevo_${contador}`);
+    division2.setAttribute('class', 'col-10');
+    division3.setAttribute('class', 'col-2');
+
+    entrada.setAttribute('form', 'editar_grupo');
+    entrada.setAttribute('type', 'text');
+    entrada.setAttribute('name', 'integrantes');
+    entrada.setAttribute('class', 'form-control');
+    entrada.setAttribute('readonly', true);
+    entrada.setAttribute('style', 'margin-bottom: 15px');
+    entrada.setAttribute('value', inputIntegrante.value);
+
+    boton.setAttribute('class', 'btn btn-danger');
+    boton.setAttribute('onclick', `funcEliminarElemento('eliminar_integrante_nuevo_${contador}');`);
+
+    texto1.setAttribute('class', 'bi bi-trash');
+    boton.setAttribute('style', 'padding-bottom: 13px');
+
+    boton.appendChild(texto1);
+    division1.appendChild(division2);
+    division1.appendChild(division3);
+    division2.appendChild(entrada);
+    division3.appendChild(boton);
+    contenedorIntegrantes.appendChild(division1);
+
+    botonIntegrante.disabled = true;
+    inputIntegrante.value = '';
+    inputIntegrante.focus();
+    contador += 1;
+    rehacerSelect();
+  });
+
+  const activarVentanaIntegrantes = () => {
+    const all = document.querySelectorAll("#input_integrante, #recuadro_integrantes .btn-danger");
+    const contador = document.querySelectorAll(".div_evento").length;
+    let deshabilitado = true;
+
+    if (contador === 0)
+      deshabilitado = false;
+    else
+      inputIntegrante.value = '';
+
+    for (let elemento of all) { 
+      elemento.disabled = deshabilitado; 
+    }  
+  };
+
+  inputEvento.addEventListener('change', () => {
+    if (inputEvento.value.length > 0 && selectEvento.value !== '0') 
+      botonEvento.disabled = false;
+    else 
+      botonEvento.disabled = true;
+  });
+
+  selectEvento.addEventListener('change', () => {
+    if (inputEvento.value.length > 0 && selectEvento.value !== '0') 
+      botonEvento.disabled = false;
+    else 
+      botonEvento.disabled = true;
+  });
+
+  botonEvento.addEventListener('click', () => {
+    const division1 = document.createElement('div');
+    const division2 = document.createElement('div');
+    const division3 = document.createElement('div');
+    const boton = document.createElement('button');
+    const texto1 = document.createElement('span');
+    const entrada = document.createElement('input');
+
+    division1.setAttribute('class', 'row div_evento');
+    division1.setAttribute('id', `eliminar_evento_nuevo_${contadorEventos}`);
+    division2.setAttribute('class', 'col-10');
+    division3.setAttribute('class', 'col-2');
+
+    entrada.setAttribute('form', 'editar_grupo');
+    entrada.setAttribute('type', 'text');
+    entrada.setAttribute('name', 'eventos');
+    entrada.setAttribute('class', 'form-control');
+    entrada.setAttribute('readonly', true);
+    entrada.setAttribute('style', 'margin-bottom: 15px');
+    entrada.setAttribute('value', inputEvento.value + ' - ' + selectEvento.value);
+
+    boton.setAttribute('class', 'btn btn-danger');
+    boton.setAttribute('onclick', `funcEliminarElemento('eliminar_evento_nuevo_${contadorEventos}');`);
+
+    texto1.setAttribute('class', 'bi bi-trash');
+    boton.setAttribute('style', 'padding-bottom: 13px');
+
+    boton.appendChild(texto1);
+    division1.appendChild(division2);
+    division1.appendChild(division3);
+    division2.appendChild(entrada);
+    division3.appendChild(boton);
+    contenedorEventos.appendChild(division1);
+
+    botonEvento.disabled = true;
+    inputEvento.value = '';
+    inputEvento.focus();
+    selectEvento.value = 0;
+    contadorEventos += 1;
+    activarVentanaIntegrantes();
+  });
+
+  activarVentanaIntegrantes();
+
+</script>

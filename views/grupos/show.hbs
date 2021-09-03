@@ -1,0 +1,75 @@
+<br />
+<br />
+
+  <div class="row">
+    <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
+      <div class='card border-dark mb-3' style='max-width: 100%'>
+        <div class='card-header bg-transparent border-dark'>
+          <h1><span class='bi bi-layout-wtf'></span> Datos del grupo</h1>
+        </div>
+        <div class='card-body text-dark'>
+          <h5 class='card-title'></h5>
+          <p class='card-text'>
+            <strong> Descripción:</strong> {{uDatos.descripcion}}<br />
+          </p>
+
+          <hr style="height: 5px;" />
+
+          <div id="contenedorEventos">
+            {{#each uDatos.eventos}}
+              <div class="row">
+                <span class="bi bi-calendar-date"> 
+                  {{ this.cuando }} - {{this.pagador_email}}  
+                </span> 
+              </div>
+            {{/each}}
+          </div>
+
+          <hr style="height: 5px;" />
+
+          <form id='borrar_grupo' action='/grupos/{{uDatos.id}}/delete' method='post' class="aqui-token">
+            <input id="grupo_id" type="hidden" name="id_grupo" value="{{uDatos.id}}">
+          </form>
+
+          
+          <button class='btn btn-secondary' style="margin-bottom: 10px;" {{#if uDatos.soyPropietario}}{{else}}disabled{{/if}} onclick="window.location = `/grupos/{{uDatos.id}}/edit?tokenparam=${localStorage.getItem('b54-token')}`">
+            <span class='bi bi-vector-pen'></span> Modificar grupo
+          </button>
+          
+
+          <button class='btn btn-primary' style="margin-bottom: 10px;" onclick="window.location = `/grupos?tokenparam=${localStorage.getItem('b54-token')}`">
+            <span class='bi bi-stack'></span> Volver al índice de grupos
+          </button>
+
+          <button type='submit' form='borrar_grupo' class='btn btn-danger' style="margin-bottom: 10px;" onclick='return confirm("¿Está seguro de que quire BORRAR el grupo? \r¡Cuidado! \rEsta acción no se puede deshacer");' {{#if uDatos.soyPropietario}}{{else}}disabled{{/if}}>
+            <i class='bi bi-trash'></i> Borrar grupo
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+      <div class='card border-dark mb-3' style='max-width: 100%;font-size:x-large;'>
+        <div class='card-header bg-transparent border-dark'>
+          <div class="row">
+            <div class="col-12">
+              <h1><i class="bi bi-people-fill"></i> Integrantes</h1>
+            </div>
+          </div>
+        </div>
+        <div class='card-body text-dark'>
+          <div id="contenedorUsuarios">
+            {{#each uDatos.usuarios}}
+              <div class="row">
+                <div class="col">
+                  <span class="bi bi-person-fill" onclick="asignarRolSeleccionado('{{this}}');"> 
+                    {{this.email}} 
+                  </span> 
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+  </div>

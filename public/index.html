@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rotaciones</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"/>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous">
+    </script>
+</head>
+<body  style="background-color: #242830; color: white; font-size: large;">
+    <div >
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1><img class="header-logo-image" src="imagenes/logo.svg" alt="Logo"></h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <header >
+            <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <h1>Control de rotaciones entre amigos</h1>
+                        <p style="color: #999;">Esta aplicación web sirve para controlar las rotaciones entre amigos como, por ejemplo, el turno de pago para los desayunos entre compañeros de trabajo. Debo reconocerlo, esta es la principal motivación para realizar el desarrollo de esta aplicación, preservar la amistad de los compañeros de trabajo. </p>
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/login"><button id="btnLogin" class="btn btn-primary">Login</button></a>
+                            </div>
+                            <div class="col-6">
+                                <a href="/login/register"><button id="btnRegistrar" class="btn btn-secondary">Registrarse</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                      <h1><img class="header-logo-image"  width="100%" src="imagenes/turnos.jpg" alt="Logo"></h1>
+                    </div>
+                </div>
+            </div>
+    </header>
+
+        <main>
+            <section>
+                <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+					<div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div>
+                                <img src="/imagenes/feature-icon-01.svg" alt="Imagen desayunos">
+                            </div>
+                            <h4>Desayunos</h4>
+                            <p style="color: #999;">Tenéis problemas a la hora de saber a quién le toca el turno para pagar el desayuno. Aquí tienes la solución. Un compañero/amigo gestiona el grupo de desayunos y los demás lo fiscalizan.</p>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div>
+                                <img src="/imagenes/feature-icon-02.svg" alt="Imagen guardias">
+                            </div>
+                            <h4>Guardias</h4>
+                            <p style="color: #999;">No os pasa que perdéis la capacidad de recordar quien fue la última o antepenúltima persona a la que le toco la guardia. Pues ya sabéis, aquí está la solución.</p>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div>
+                                <img src="/imagenes/feature-icon-03.svg" alt="Imagen medio de transporte">
+                            </div>
+                            <h4>Medio de transporte</h4>
+                            <p style="color: #999;">Quien fue el último que tuvo que conducir mientras los demás amigos estaban un poquito indispuestos por los efectos del alcohol. Aquí está la solución.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container" style="margin-top: 100px; margin-bottom: 100px;">
+                <div class="row">
+                    <div class="offset-xl-2 offset-lg-2 offset-md-2 offset-sm-0 offset-xs-0 col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h2>Sin límite de uso</h2>
+                        <p style="color: #999;">El título en realidad no es el adecuado, porque yo no le pongo ningún problema al uso de la aplicación, pero esta aplicación web está alojada en los servidore gratuitos de Heroku. Esto implica que tengo unas horas de uso al mes, 550 dynos, cuando esas horas de uso se terminan el servicio se corta hasta el siguiente mes. También existe un límite de almacenamiento en bases de datos, 50 MB, una vez alcanzado ese máximo no podré seguir dando el servicio. Así que esas son las restricciones de uso que vienen impuestas desde el exterior. Solo me queda recordaros que por mi parte no hay publicidad, no comercializo con los datos ni cobro por el servicio.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer" style="background-color: #343a40; padding-top: 100px; padding-bottom: 100px;">
+            <div class="container">
+                <h2><span class='text-muted'>Pedro Manuel Muñoz Morales © 2021 </span></h2>
+                <div class="pull-right">
+                  Fecha de la última edición 03/09/2021
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <h3><span class="bi bi-lock-fill"></span> Protección de datos</h3>
+                    <hr />
+                    <p style="color: #999;">En cumplimiento de las prescripciones establecidas en la Ley Orgánica 3/2018, de 5 de  diciembre, de Protección de Datos Personales y garantía de los derechos digitales y el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de abril de 2016, relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales y a la libre circulación de estos datos, puede consultar la Política de Protección de Datos visitando la página web de la Agencia Española de Protección de Datos accesible a través de este enlace.
+                      <br />
+                      <br />
+                      <a href="https://www.boe.es/legislacion/codigos/codigo.php?id=055_Proteccion_de_Datos_de_Caracter_Personal&modo=1%20" target="_blank">Agencia Española de Protección de Datos</a>
+                    </p>
+                  </div>
+        
+                  <div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-xs-12"> 
+                    <h3><span class="bi bi-envelope-fill" ></span> Contacto</h3>
+                    <hr />
+                    <div style="color: #999;">
+
+                        Pedro Manuel Muñoz Morales <br />
+                        Calle y número<br />
+                        Teléfono: XXX XX XX XX <br />
+                        Extensión: XXXX <br />
+                        © 2021 <br />
+                        <br />
+                        <a href="mailto:pmunoz85@alumno.uned.es">pmunoz85@alumno.uned.es</a>
+                    </div>
+                  </div>
+        
+                  <div class="col-xl-5 col-lg-5 col-md-4 col-sm-12 col-xs-12"> 
+                    <h3><span class="bi bi-cpu-fill"></span> Tecnologías utilizadas</h3> 
+                    <hr />
+                    <p style="color: #999;">En este desarrollo utilizamos varias tecnologías Open Source. Como lenguaje de desarrollo principal utilizamos JavaScript, tanto en la parte frontal como en el servidor. En la parte del Backend utilizamos NodeJS para el entorno de ejecución de JavaScript, npm para la gestión de paquetes, Handlebars para la construcción dinámica de páginas HTML y Postgresql como servidor de bases de datos. En la parte del Frontend, utilizamos HTML y CSS como lenguaje de maquetado, Bootstrap como framework de CSS, JavaScript para la manipulación de la página web, la libreria Socket.io para la comunicación con el servidor y diversas tecnologías más. Con ello conseguimos una experiencia de usuario dinámica y amigable. </p>
+                  </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

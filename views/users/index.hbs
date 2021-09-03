@@ -1,0 +1,90 @@
+<h1 class='mt-5'> 
+  <span class='bi bi-people-fill'></span> Usuarios 
+  <button id="btnNuevoUsuario" class="btn btn-primary float-end"><span class='bi bi-plus-square'></span> Nuevo usuario</button>
+</h1>
+
+<nav aria-label='Page navigation example'>
+  <ul class='pagination justify-content-end'>
+    <li class='page-item {{previous_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/users/?page={{pagina_anterior}}'
+        tabindex='-1'
+        aria-disabled='true'
+      >Anterior</a>
+    </li>
+    {{#each botonesPaginas}}
+      <li class='page-item {{#if (eq this ../pagina)}}active{{/if}}' >
+        <a
+          class='aqui-token page-link' 
+          href='/users?page={{this}}'
+        >{{this}}</a></li>
+    {{/each}}
+    <li class='page-item {{next_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/users/?page={{pagina_posterior}}'
+      >Siguiente</a>
+    </li>
+  </ul>
+</nav>
+
+<hr style="height: 5px; margin-top: 5px" />
+
+<div class="row">
+  <div class='col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12'></div>
+  <div class='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12'><strong> Email</strong></div>
+  <div class='col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12'><strong> Roles</strong></div>
+</div>
+{{#each registros}}
+  <div class="row">
+    <hr style="height: 5px; margin-top: 5px" />
+  </div>
+  <div class="row">
+
+    <div class='col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12'>
+      <button class='btn btn-secondary' onclick="window.location = `/users/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`">
+        <span class='bi bi-eye'></span>
+      </button>
+    </div>
+    <div class='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12'>{{this.email}}</div>
+    <div class='col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12'>{{this.roles}}</div>
+
+  </div>
+{{/each}}
+
+
+<hr style="height: 5px; margin-top: 5px" />
+
+<nav aria-label='Page navigation example'>
+  <ul class='pagination justify-content-end'>
+    <li class='page-item {{previous_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/users/?page={{pagina_anterior}}'
+        tabindex='-1'
+        aria-disabled='true'
+      >Anterior</a>
+    </li>
+    {{#each botonesPaginas}}
+      <li class='page-item {{#if (eq this ../pagina)}}active{{/if}}' >
+        <a
+          class='aqui-token page-link' 
+          href='/users?page={{this}}'
+        >{{this}}</a></li>
+    {{/each}}
+    <li class='page-item {{next_disabled}}'>
+      <a
+        class='aqui-token page-link'
+        href='/users/?page={{pagina_posterior}}'
+      >Siguiente</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const botonNuevo = document.querySelector('#btnNuevoUsuario');
+  botonNuevo.addEventListener('click', () => {
+    window.location = `/users/new?tokenparam=${localStorage.getItem('b54-token')}`;
+  });
+</script>

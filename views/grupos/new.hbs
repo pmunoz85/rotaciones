@@ -1,0 +1,122 @@
+<br />
+<br />
+<div class='card border-dark mb-3' style='max-width: 90%;'>
+  <div class='card-header bg-transparent border-dark'><h1><i class="bi bi-layout-wtf"></i> Nuevo grupo </h1></div>
+  <div class='card-body text-dark'>
+    <h5 class='card-title'>Descripción del grupo</h5>
+    <p class='card-text'>
+      <form id='nuevo_grupo' action='/grupos' method='post' class="aqui-token">
+        <div class='row' style="padding-bottom: 15px;">
+          <div class='col-12'>
+            <input type='text' name='descripcion' class='form-control' autofocus required placeholder="descripción del grupo"></input>
+          </div>
+        </div>
+
+        <hr style="height: 5px;"/>
+
+        <div class="row">
+          <div class="col">
+            <span class="bi bi-person-fill"> 
+             <i>{{email_usuario}}</i> (propietario)
+            </span> 
+          </div>
+        </div>
+
+        <hr style="height: 5px;"/>
+
+        <div class='row'>
+          <div class='col-xl-8 col-lg-7 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+            <input id="input_integrante" type="email" class="form-control" name="email_integrante" placeholder="email del nuevo integrante"></input>
+          </div>
+          <div class='col-xl-4 col-lg-5 col-md-12 col-sm-12' style="padding-bottom: 15px;">
+            <button id="boton_integrante" class="btn btn-success" disabled><span class='bi bi-person-plus' ></span> Añadir el nuevo integrante</button>
+          </div>
+        </div>
+        
+        <hr style="height: 5px;"/>
+
+        <div class="row">
+          <div id='div_integrantes'>
+          </div>
+        </div>
+      </form>
+    </p>
+  </div>
+  <div class='card-footer bg-transparent border-dark'>
+    <button type='submit' form='nuevo_grupo' class='btn btn-success'>
+      <span class='bi bi-check-circle-fill'></span> Aceptar
+    </button>
+    <button class='btn btn-danger' onclick="window.location = `/grupos?tokenparam=${localStorage.getItem('b54-token')}`">
+      <span class='bi bi-x-circle-fill'></span> Cancelar
+    </button>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  let contador = 1;
+  const botonIntegrante = document.querySelector('#boton_integrante');
+  const listaIntegrantes = document.querySelector('#div_integrantes');
+  const inputIntegrante = document.querySelector('#input_integrante');
+
+  const funcionAddEvent = () => {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(inputIntegrante.value) && comprobarListaIntegrantes(inputIntegrante.value)) 
+      botonIntegrante.disabled = false;
+    else 
+      botonIntegrante.disabled = true;
+  };
+
+  inputIntegrante.addEventListener('keyup', funcionAddEvent);
+  inputIntegrante.addEventListener('change', funcionAddEvent);
+
+  const comprobarListaIntegrantes = (nuevo) => {
+    const integrantesParaSelect = document.querySelectorAll('#div_integrantes input');
+    
+    for (let elemento of integrantesParaSelect) { 
+      if (nuevo === elemento.value) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  botonIntegrante.addEventListener('click', () => {
+    const entrada = document.createElement('input');
+    const division0 = document.createElement('div');
+    const division1 = document.createElement('div');
+    const division2 = document.createElement('div');
+    const boton = document.createElement('button');
+    const texto = document.createElement('span');
+      
+    texto.innerHTML = ' Eliminar';
+    texto.setAttribute('class', 'bi bi-trash');
+
+    boton.setAttribute('class', 'btn btn-danger');
+    boton.setAttribute('onclick', `const d = document.getElementById('div_integrantes'); const d_nested = document.getElementById('identificador_${contador}'); d.removeChild(d_nested); `);
+
+    division0.setAttribute('class', 'row');
+    division0.setAttribute('id', `identificador_${contador}`);
+    division1.setAttribute('class', 'col-xl-10 col-lg-10 col-md-9 col-sm-12');
+    division2.setAttribute('class', 'col-xl-2 col-lg-2 col-md-3 col-sm-12');
+
+    entrada.setAttribute('form', 'nuevo_grupo');
+    entrada.setAttribute('type', 'text');
+    entrada.setAttribute('name', 'integrantes');
+    entrada.setAttribute('class', 'form-control');
+    entrada.setAttribute('readonly', true);
+    entrada.setAttribute('style', 'margin-bottom: 15px');
+    entrada.setAttribute('value', inputIntegrante.value);
+
+    boton.appendChild(texto);
+    division1.appendChild(entrada);
+    division2.appendChild(boton);
+    division0.appendChild(division1);
+    division0.appendChild(division2);
+    listaIntegrantes.appendChild(division0);
+
+    botonIntegrante.disabled = true;
+    inputIntegrante.value = '';
+    inputIntegrante.focus();
+    contador += 1;
+  });
+
+</script>
