@@ -1,6 +1,6 @@
-
+*.swp
 .env
+.env.sh
 .DS_Store
 node_modules/*
 docs/comandos.txt
-

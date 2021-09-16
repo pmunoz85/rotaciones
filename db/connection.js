@@ -29,7 +29,7 @@ if (process.env.DATABASE_URL) {
 } else {
   // PostgreSql
   sequelize = new Sequelize(
-    process.env.DB,
+    process.env.DB_NAME,
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {

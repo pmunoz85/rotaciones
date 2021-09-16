@@ -1,6 +1,6 @@
 # **Proyecto Rotaciones**
 
-La aplicación la podemos encontrar puesta en producción en la siguiente URL [rotaciones.herokuapp.com](https://rotaciones.herokuapp.com/).
+Puedes ver una demo de esta aplicación en [https://rotaciones.herokuapp.com](https://rotaciones.herokuapp.com)
 
 Este proyecto nace de la necesidad de realizar una codekata. El contexto de realización de la codekata se basa en el desarrollo de una aplicación web completa, pero de pequeño tamaño. De esta manera podemos evaluar algunos de los problemas a los que nos vamos a enfrentar en un desarrollo, pero sin emplear mucho tiempo en resolver dichos problemas.
 
@@ -22,7 +22,7 @@ Damos por sentado que tienes instalado en tu sistema las siguientes herramientas
 3. Instalación de las dependencias con NPM. 
     ``` npm install```
 
-4. [Creación de un fichero con las variables de entorno necesarias.](#variables-de-entrono)
+4. [Creación de un fichero con las variables de entorno necesarias.](#variables-de-entorno)
 
 ## **_Que implica este desarrollo_**
 
@@ -275,45 +275,11 @@ END;
 $$ 
 LANGUAGE plpgsql;
 ```
-### _Variables de entrono_
+### _Variables de entorno_
 
-Una vez que hemos realizado un clon de la aplicación web y hemos creado la base de datos en Postgres, es el momento de crear un fichero llamado ".env" en la raíz de la aplicación. Podemos ver el conenido del ejemplo que hemos aportado en un fichero llamado ".env.EXAMPLE". Podemos renombrar el ejemplo con el nombre requerido ".env" y que este nos sirva de guía para crear nuestras constantes específicas. En este fichero definimos las constantes necesarias para la conexión a la base de datos, la configuración de la cuenta de correor electrónico para el envío de correos electrónicos, la clave privada de los Json Web Token, etc.
+Una vez realizado el clon de la aplicación web y creado la base de datos PostgresSQL es el momento de crear el fichero de configuración ".env.sh" en la raíz de la aplicación. Para ello haz una copia del fichero de configuración de ejemplo ".env-example.sh" con el comando `cp .env-example.sh .env.sh` y edita el fichero con tu propia configuración.
 
-Aquí tenemos el contenido del fichero ".env.EXAMPLE".
-
-``` 
-/////////////////////////////////////////////////
-// Puerto de escucha para las peticiones http  //
-/////////////////////////////////////////////////
-PORT=8080
-
-////////////////////////////////////////
-// Clave privada para genrar los JWT  //
-////////////////////////////////////////
-PRIVATEKEY=1234567890
-
-///////////////////////////////////////////////////////////////////
-// Constantes utilizadas para el servicio de correo electrónico  //
-///////////////////////////////////////////////////////////////////
-EMAIL_USER=micuentadecorreo@gmail.com
-EMAIL_PASSWORD=EstaEsLaClave
-EMAIL_SERVICE=gmail
-
-////////////////////////////////////////////////
-// Parámetros de la base de datos PostgreSql  //
-////////////////////////////////////////////////
-DB_HOST=localhost
-DB_USER=postgres
-DB_PASSWORD=1234567890
-DB=rotaciones_development
-DB_DIALECT=postgres
-DB_PORT=5432
-DB_POOL_MAX=5
-DB_POOL_MIN=0
-DB_POOL_ACQUIRE=30000
-DB_POOL_IDLE=10000
-// es_ES.ISO8859-1
-```
+Seguidamente podemos cargar las variables de entorno en nuestro sistema con el comando `source .env.sh`
 
 ### _Paginado de las tablas grupos y usuarios_
 
