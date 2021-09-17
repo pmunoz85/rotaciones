@@ -1,7 +1,19 @@
 
 IMPLEMENTACIONES PENDIENTES
 
-- Añadir un calendario con todos los eventos de mes que se han producido en los grupos que formas parte.
+- Modificar la ventana modal para los mensajes "Alert", por algo más elaborado.
+
+- Añadir un campo y su funcionalidad para anotar el lugar donde se ha realizado el evento.
+
+- Añadir la posición en coordenadas del sitio donde tomamos nota.
+
+- Usar la comunicación con socket para refrescar la pantalla de los grupos a los que perteneces.
+
+- Añadir funcionalidades a la vista del show de los grupos.
+
+- Copia de seguridada de los datos almacenados.
+
+=======================
 
 - Identificación de usuarios a través de certificado electrónico.
 

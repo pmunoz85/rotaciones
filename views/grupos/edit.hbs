@@ -4,20 +4,37 @@
 <div class="row">
   <div class="col-12">
     <div class='card border-dark mb-3' style='max-width: 100%;'>
-      <div class='card-header bg-transparent border-dark'>
-        <h1><i class="bi bi-layout-wtf"></i> Editar grupo</h1>
+      <div class='card-header border-dark' style="color:  {{uDatos.textColor}}; background: {{uDatos.color}};">
+        <h1 style="color:  {{uDatos.textColor}}; background-color: {{uDatos.color}};"><i class="bi bi-layout-wtf"></i> Editar grupo</h1>
       </div>
       <div class='card-body text-dark'>
-        <h5 class='card-title'>Descripción del grupo</h5>
-        <p class='card-text'>
-          <form id="editar_grupo" action="/grupos/{{uDatos.id}}" method="post" class="aqui-token">
+        <form id="editar_grupo" action="/grupos/{{uDatos.id}}" method="post" class="aqui-token">
+          <h5 class='card-title'>Descripción del grupo</h5>
+          <p class='card-text'>
             <div class='row'>
               <div class='col-12'>
                 <input type='text' name='descripcion' class='form-control' autofocus required value="{{uDatos.descripcion}}" placeholder="descripción del grupo"></input>
               </div>
             </div>
-          </form>
-        </p>
+          </p>
+          <p class='card-text'>
+            <h5 class='card-title'>Colores representados en el calendario:</h5>
+            <div class='row'>
+              <div class="col-xl-5 col-lg-5 col-md-4 col-sm-3 col-xs-3">
+                <h5 class='card-title' style="text-align: center;">Fondo</h5>
+              </div>
+              <div class='col-xl-1 col-lg-1 col-md-2 col-sm-3 col-xs-3'>
+                <input type='color' name='color' class="form-control" required value="{{uDatos.color}}"></input>
+              </div>
+              <div class="col-xl-5 col-lg-5 col-md-4 col-sm-3 col-xs-6">
+                <h5 class='card-title' style="text-align: center;">Fuente</h5>
+              </div>
+              <div class='col-xl-1 col-lg-1 col-md-2 col-sm-3 col-xs-6'>
+                <input type='color' name='textColor' class='form-control' required value="{{uDatos.textColor}}"></input>
+              </div>
+            </div>
+          </p>
+        </form>
       </div>
       <div class='card-footer bg-transparent border-dark'>
         <button type='submit' form='editar_grupo' class='btn btn-success'>

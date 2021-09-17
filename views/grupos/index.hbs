@@ -39,7 +39,7 @@
   {{#each registros}}
     <div class="row">
       <div class="col-12">
-        <button class='btn btn-secondary' onclick="window.location = `/grupos/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`">
+        <button class='btn btn-secondary' onclick="window.location = `/grupos/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`" style="color:  {{this.textColor}}; background-color: {{this.color}};">
           <span class='bi bi-eye'></span>
         </button>  
         <strong><big> => {{this.descripcion}}</big></strong>

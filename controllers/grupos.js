@@ -7,7 +7,7 @@ const db = require('../db/connection');
 const directorioVista = '../views/grupos/';
 const arrayPaginador = require('../helpers/paginador');
 
-const campos = ['id', 'descripcion', 'createdAt', 'updatedAt'];
+const campos = ['id', 'descripcion', 'color', 'textColor', 'createdAt', 'updatedAt'];
 
 // ########################################################
 // Funciones 
@@ -54,6 +54,8 @@ const indice = async (req, res) => {
     select 
       grupos.id, 
       grupos.descripcion, 
+      grupos.color,
+      "textColor", 
       siguiente(grupos.id) as siguiente_id,
       siguiente_email(grupos.id) as siguiente_email 
     from grupos 
@@ -238,11 +240,13 @@ const crear = (req, res) => {
   const { descripcion, integrantes } = req.body;
   const idUsuario = req.usuario.id;
 
-  db.Grupos.create({ descripcion })
+  const colorFondo = Math.floor(Math.random()*16777215).toString(16);
+  
+  db.Grupos.create({ descripcion, color: `#${colorFondo}`, textColor: 'white' })
     .then( async (grupo) => {
 
       if (integrantes) {
-        await db.GrupoUser.create({ grupo_id: grupo.id, user_id: idUsuario, propietario: 1 });
+        await db.GrupoUser.create({ grupo_id: grupo.id, user_id: idUsuario, propietario: 1});
         if (Array.isArray(integrantes)) {
           for (const emailUsuario of integrantes) {
             let u = await db.Users.findOne({
@@ -449,7 +453,7 @@ const editar = async (req, res) => {
 // update
 const actualizar = async (req, res) => {
   const { id } = req.params;
-  const { descripcion, integrantes, eventos } = req.body;
+  const { descripcion, color, textColor, integrantes, eventos } = req.body;
   const idUsuario = req.usuario.id;
 
   const propietarioGrupo = await db.sequelize.query(`
@@ -476,7 +480,9 @@ const actualizar = async (req, res) => {
       throw new Error('Grupo no encontrado');
 
     grupo.update({ 
-      descripcion 
+      descripcion,
+      color,
+      textColor 
     }).then( async (actualizado) => {
       await db.sequelize.query(`
         delete from eventos 

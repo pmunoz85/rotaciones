@@ -1,11 +1,49 @@
+<link href='fullcalendar/main.min.css' rel='stylesheet' />
+<script src='fullcalendar/main.min.js'></script>
 
-<h1>Calendario con todos los eventos realizados</h1>
+<div style="padding-bottom: 50px; padding-top: 25px;">
+  {{#each grupos}}
+    <button id="boton_{{this.id}}_1" class="btn" style="font-size: x-small; color:  {{this.textColor}}; background-color: {{this.color}}; margin-bottom: 5px;">{{this.descripcion}}</button>
+    <script>
+      const enlace_{{this.id}}_1 = document.getElementById('boton_{{this.id}}_1');
+      enlace_{{this.id}}_1.addEventListener('click', () => {
+        window.location = `/grupos/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`;
+      });
+    </script>
+  {{/each}}
+  <div class="row" style="padding-bottom: 30px;">
+    <div id='calendar'></div>
+  </div>
+  {{#each grupos}}
+    <button id="boton_{{this.id}}_2" class="btn" style="font-size: x-small; color:  {{this.textColor}}; background-color: {{this.color}}; margin-bottom: 5px;">{{this.descripcion}}</button>
+    <script>
+      const enlace_{{this.id}}_2 = document.getElementById('boton_{{this.id}}_2');
+      enlace_{{this.id}}_2.addEventListener('click', () => {
+        window.location = `/grupos/{{this.id}}?tokenparam=${localStorage.getItem('b54-token')}`;
+      });
+    </script>
+  {{/each}}
+</div>
 
-<button id="btnGrupos" class="btn btn-primary">Gestión de grupos</button>
-
+<script src="fullcalendar/locales/es.js"></script>
 <script>
-  const botonNuevo = document.querySelector('#btnGrupos');
-  botonNuevo.addEventListener('click', () => {
-    window.location = `/grupos?tokenparam=${localStorage.getItem('b54-token')}`;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es',
+      events: [
+       {{#each eventos}}
+        {
+          title: '{{this.title}}',
+          start: '{{this.start}}',
+          color: '{{this.color}}',
+          textColor: '{{this.textColor}}',
+        },
+       {{/each}}
+      ]
+    });
+    calendar.render();
   });
 </script>

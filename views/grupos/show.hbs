@@ -4,13 +4,21 @@
   <div class="row">
     <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
       <div class='card border-dark mb-3' style='max-width: 100%'>
-        <div class='card-header bg-transparent border-dark'>
+        <div class='card-header border-dark' style="color:  {{uDatos.textColor}}; background: {{uDatos.color}};">
           <h1><span class='bi bi-layout-wtf'></span> Datos del grupo</h1>
         </div>
         <div class='card-body text-dark'>
           <h5 class='card-title'></h5>
           <p class='card-text'>
             <strong> Descripción:</strong> {{uDatos.descripcion}}<br />
+          </p>
+
+          <p class='card-text'>
+            <strong> Color de fondo para el calendario:</strong> {{uDatos.color}}<br />
+          </p>
+
+          <p class='card-text'>
+            <strong> Color del texto para el calendario:</strong> {{uDatos.textColor}}<br />
           </p>
 
           <hr style="height: 5px;" />

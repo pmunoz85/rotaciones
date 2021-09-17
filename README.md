@@ -1,6 +1,6 @@
 # **Proyecto Rotaciones**
 
-La aplicación la podemos encontrar puesta en producción en la siguiente URL [rotaciones.herokuapp.com](https://rotaciones.herokuapp.com/).
+Puedes ver una demo de esta aplicación desplegada en [rotaciones.herokuapp.com](https://rotaciones.herokuapp.com/).
 
 Este proyecto nace de la necesidad de realizar una codekata. El contexto de realización de la codekata se basa en el desarrollo de una aplicación web completa, pero de pequeño tamaño. De esta manera podemos evaluar algunos de los problemas a los que nos vamos a enfrentar en un desarrollo, pero sin emplear mucho tiempo en resolver dichos problemas.
 
@@ -22,7 +22,7 @@ Damos por sentado que tienes instalado en tu sistema las siguientes herramientas
 3. Instalación de las dependencias con NPM. 
     ``` npm install```
 
-4. [Creación de un fichero con las variables de entorno necesarias.](#variables-de-entrono)
+4. [Creación de un fichero con las variables de entorno necesarias.](#variables-de-entorno)
 
 ## **_Que implica este desarrollo_**
 
@@ -130,6 +130,11 @@ create table eventos (
   );
 
 alter table grupo_user add column propietario int not null default 0;
+
+alter table grupos add column color VARCHAR(256) not null default 'black';
+
+alter table grupos add column "textColor" VARCHAR(256) not null default 'white';
+
 ```
 Este es el código escrito en PS/SQL, es necesario para la creación de las dos funciones utilizada para obtener el siguiente integrante del grupo al que le toca el turno.
 
@@ -275,7 +280,7 @@ END;
 $$ 
 LANGUAGE plpgsql;
 ```
-### _Variables de entrono_
+### _Variables de entorno_
 
 Una vez que hemos realizado un clon de la aplicación web y hemos creado la base de datos en Postgres, es el momento de crear un fichero llamado ".env" en la raíz de la aplicación. Podemos ver el conenido del ejemplo que hemos aportado en un fichero llamado ".env.EXAMPLE". Podemos renombrar el ejemplo con el nombre requerido ".env" y que este nos sirva de guía para crear nuestras constantes específicas. En este fichero definimos las constantes necesarias para la conexión a la base de datos, la configuración de la cuenta de correor electrónico para el envío de correos electrónicos, la clave privada de los Json Web Token, etc.
 
