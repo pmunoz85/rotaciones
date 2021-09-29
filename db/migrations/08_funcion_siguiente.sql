@@ -53,14 +53,14 @@ BEGIN
     SELECT count(*) into usuarios   
     FROM grupo_user 
     where grupo_id = $1 
-    and user_id not in (select user_id from eventos where grupo_id = $1 order by eventos.id desc limit i);
+    and user_id not in (select user_id from eventos where grupo_id = $1 order by eventos.created_at desc limit i);
 
     if (usuarios = 1) then
       SELECT user_id  into seleccionado
       FROM grupo_user 
       where grupo_id = $1 
       and user_id not in (
-        select user_id from eventos where grupo_id = $1 order by id desc limit i) 
+        select user_id from eventos where grupo_id = $1 order by created_at desc limit i) 
       order by id ;
       return seleccionado;
     end if;
@@ -128,7 +128,7 @@ BEGIN
     SELECT count(*) into usuarios   
     FROM grupo_user 
     where grupo_id = $1 
-    and user_id not in (select user_id from eventos where grupo_id = $1 order by eventos.id desc limit i);
+    and user_id not in (select user_id from eventos where grupo_id = $1 order by eventos.created_at desc limit i);
 
     if (usuarios = 1) then
       SELECT users.email  into seleccionado
@@ -136,7 +136,7 @@ BEGIN
       left join users on users.id = grupo_user.user_id
       where grupo_id = $1 
       and user_id not in (
-        select user_id from eventos where grupo_id = $1 order by id desc limit i) 
+        select user_id from eventos where grupo_id = $1 order by created_at desc limit i) 
       order by grupo_user.id ;
       return seleccionado;
     end if;

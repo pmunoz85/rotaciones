@@ -101,7 +101,7 @@ const indice = async (req, res) => {
       from eventos 
       left join users on users.id = eventos.user_id 
       where eventos.grupo_id = ${grupo.id}
-      order by eventos.id desc limit 10 
+      order by eventos.created_at desc limit 15 
       `,
     { type: db.sequelize.QueryTypes.SELECT }
     ).then(eventos => {
@@ -352,7 +352,7 @@ const mostrar = (req, res) => {
           from eventos 
           left join users on users.id = eventos.user_id 
           where eventos.grupo_id = ${grupo.id}
-          order by eventos.id desc limit 10 
+          order by eventos.created_at desc limit 20 
           `,
         { type: db.sequelize.QueryTypes.SELECT }
         ).then(eventos => {
@@ -431,7 +431,7 @@ const editar = async (req, res) => {
           from eventos 
           left join users on users.id = eventos.user_id 
           where eventos.grupo_id = ${grupo.id}
-          order by eventos.id desc limit 10 
+          order by eventos.created_at desc 
           `, { type: db.sequelize.QueryTypes.SELECT }
         ).then(eventos => {
           uDatos.eventos = eventos;
